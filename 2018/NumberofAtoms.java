@@ -1,40 +1,20 @@
-
 class Solution {
-    
-    class Unit {
-        String str;
-        int num;
-        
-        public Unit(String ch, int number) {
-            str = ch;
-            num = number;
-        }
-    }
     
     int idx = 0;
     public String countOfAtoms(String formula) {
         idx = 0;
         Map<String, Integer> map = helper(formula);
         
-        List<Unit> units = new ArrayList<Unit>();
-        for (String c : map.keySet()) {
-            Unit u = new Unit(c, map.get(c));
-            units.add(u);
-        }
-        
-        Collections.sort(units, new Comparator<Unit>() {
-            public int compare(Unit u1, Unit u2) {
-                return u1.str.compareTo(u2.str);
-            }
-        });
+        List<String> elements = new ArrayList<String>(map.keySet());
+        Collections.sort(elements);
         
         StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < units.size(); i++) {
-            Unit u = units.get(i);
-            if (u.num == 1) {
-                sb.append(u.str);
+        for (int i = 0; i < elements.size(); i++) {
+            int num = map.get(elements.get(i));
+            if (num == 1) {
+                sb.append(elements.get(i));
             } else {
-                sb.append(u.str + u.num);
+                sb.append(elements.get(i) + num);
             }
         }
         
@@ -135,5 +115,3 @@ class Solution {
         return c >= 'a' && c <= 'z';
     }
 }
-
-
